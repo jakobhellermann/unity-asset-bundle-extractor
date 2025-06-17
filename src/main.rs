@@ -161,7 +161,7 @@ impl State {
         true
     }
 
-    fn view(&self) -> Element<Message> {
+    fn view(&self) -> Element<'_, Message> {
         match &self.path {
             Some(path) => {
                 let column = self
