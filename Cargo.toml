@@ -2,6 +2,7 @@
 name = "assetbundleextractor"
 version = "0.1.0"
 edition = "2024"
+license = "MIT"
 
 [dependencies]
 iced = { version = "0.13", features = ["advanced"] }

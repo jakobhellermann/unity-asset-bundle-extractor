@@ -1,3 +1,4 @@
+#![windows_subsystem = "windows"]
 mod utils;
 use iced::alignment::Vertical;
 use iced::futures::channel::{mpsc, oneshot};
