@@ -5,10 +5,11 @@ edition = "2024"
 license = "MIT"
 
 [dependencies]
-iced = { version = "0.13", default-features = false, features = [
+iced = { git = "https://github.com/iced-rs/iced", rev = "89f480", default-features = false, features = [
     "advanced",
     "tiny-skia",
     "fira-sans",
+    "thread-pool",
 ] }
 rfd = "0.15"
 numeric-sort = "0.1"

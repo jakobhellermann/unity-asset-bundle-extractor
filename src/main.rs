@@ -16,14 +16,21 @@ use std::io::BufReader;
 use std::path::PathBuf;
 
 pub fn main() -> iced::Result {
-    let app = iced::application("Asset Bundle Extractor", State::update, State::view)
-        .theme(State::theme)
-        .window_size((800., 600.));
-    let init_task = initial_path()
-        .map(Message::Selected)
-        .map(Task::done)
-        .unwrap_or_else(Task::none);
-    app.run_with(|| (State::default(), init_task))
+    let init = || {
+        initial_path()
+            .map(Message::Selected)
+            .map(Task::done)
+            .unwrap_or_else(Task::none)
+    };
+    iced::application(
+        move || (State::default(), init()),
+        State::update,
+        State::view,
+    )
+    .theme(State::theme)
+    .title("Asset Bundle Extractor")
+    .window_size((800., 600.))
+    .run()
 }
 
 fn initial_path() -> Option<PathBuf> {
@@ -202,8 +209,7 @@ impl State {
                             .on_press(Message::OpenPicker)
                     ),
                     match self.export_progress {
-                        Some(progress) =>
-                            Element::new(progress_bar(0.0..=1.0, progress).width(Length::Fill)),
+                        Some(progress) => Element::new(progress_bar(0.0..=1.0, progress)),
                         None => Element::new(Space::with_width(Length::Fill)),
                     },
                     checkbox("Skip Resources", self.skip_resources)
