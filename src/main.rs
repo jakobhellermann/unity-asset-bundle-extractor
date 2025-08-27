@@ -8,8 +8,7 @@ use iced::widget::{
     Column, Scrollable, Space, button, checkbox, column, container, progress_bar, row, text,
 };
 use iced::{Color, Element, Length, Task, Theme};
-use rabex::config::ExtractionConfig;
-use rabex::files::bundlefile::BundleFileReader;
+use rabex::files::bundlefile::{BundleFileReader, ExtractionConfig};
 use rfd::FileHandle;
 use std::fs::{DirBuilder, File};
 use std::io::BufReader;
@@ -257,7 +256,7 @@ fn export_bundle(
         let mut reader = BundleFileReader::from_reader(file, &config)?;
 
         let total = reader
-            .remaining()
+            .files()
             .iter()
             .filter(|entry| !(skip_resources && is_resource(&entry.path)))
             .count();
